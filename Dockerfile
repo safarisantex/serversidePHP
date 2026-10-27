@@ -1,5 +1,13 @@
 # 1. Use the official PHP image bundled with the Apache web server
 FROM php:8.2-apache
+RUN a2enmod rewrite
+
+# RUN THIS COMMAND: Installs the required extensions to talk to a MySQL Database
+RUN docker-php-ext-install pdo pdo_mysql
+
+COPY index.php /var/www/html/index.php
+RUN chown -R www-data:www-data /var/www/html
+EXPOSE 80
 
 # 2. Enable Apache mod_rewrite (useful for clean URL routing)
 RUN a2enmod rewrite
